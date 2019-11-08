@@ -1,0 +1,4 @@
+itemdatabase\ItemDatabaseApplication.class
+itemdatabase\ItemRepository.class
+itemdatabase\ItemDatabaseController.class
+itemdatabase\Item.class

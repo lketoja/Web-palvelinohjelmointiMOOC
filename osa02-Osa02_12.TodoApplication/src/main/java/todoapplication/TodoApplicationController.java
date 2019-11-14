@@ -22,7 +22,10 @@ public class TodoApplicationController {
     
     @GetMapping("/{id}")
     public String oneItem(Model model, @PathVariable Long id){
-        model.addAttribute("item", itemRepo.getOne(id));
+        TodoItem item = itemRepo.getOne(id);
+        item.setChecked(item.getChecked()+1);
+        itemRepo.save(item);
+        model.addAttribute("item", item);
         return "todo";
     }
     

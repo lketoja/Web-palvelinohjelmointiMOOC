@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Students</title>
+    </head>
+
+    <body>
+        <h1>Students</h1>
+        
+        <div th:each ="student : ${students}">
+            <a th:href="@{/students/{id}(id=${student.id})}" 
+                <span th:text ="${student.first_name}">first name <span/>
+              
+            </a>
+        </div>
+        
+        <h2>Add a student:</h2>
+        <form th:action = "@{/students}" method="POST">
+            <span>first name: </span><input type="text" name="first_name"/><br/>
+            <span>second name: </span><input type="text" name="second_name"/>
+            <input type="submit" value="add"/>
+        </form>
+        
+        
+
+    </body>
+</html>

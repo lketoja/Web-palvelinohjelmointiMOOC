@@ -1,0 +1,5 @@
+2019-11-13 09:36:18 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT * FROM QUESTION
+SELECT[*] * FROM EXAM"; SQL statement:
+SELECT * FROM QUESTION
+SELECT * FROM EXAM [42000-197]

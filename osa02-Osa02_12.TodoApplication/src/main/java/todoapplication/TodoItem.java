@@ -15,5 +15,6 @@ public class TodoItem extends AbstractPersistable<Long>{
     
     private String name;
     private int checked;
+  
     
 }

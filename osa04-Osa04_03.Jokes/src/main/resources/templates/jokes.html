@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Jokes</title>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+        <h1>Jokes</h1>
+
+        <em th:text="${joke.joke}">joke content</em>
+        
+        <p th:if="${vote.downVotes > 0}">This was poor, n=<span th:text="${vote.downVotes}">0</span></p>
+        <p th:if="${vote.upVotes > 0}">This was good, n=<span th:text="${vote.upVotes}">0</span></p>
+        <br/>
+        <br/>
+        
+        <form method="POST" th:action="@{/jokes/{id}/vote(id=${joke.id})}">
+            <input type="hidden" name="value" value="down"/>
+            <input type="submit" value="This was a bad one :("/>
+        </form>
+        
+        <form method="POST" th:action="@{/jokes/{id}/vote(id=${joke.id})}">
+            <input type="hidden" name="value" value="up"/>
+            <input type="submit" value="This was a good one :)"/>
+        </form>
+        
+    </body>
+</html>

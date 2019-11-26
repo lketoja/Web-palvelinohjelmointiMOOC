@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -19,18 +20,22 @@ public class ExamController {
     
     @Autowired
     private ExamRepository examRepo;
+    
+    @Autowired
+    private QuestionRepository questionRepo;
 
 
     @GetMapping("/exams")
     public String listExams(Model model) {
-        model.addAttribute("exams", examRepo.findAll());
+        Pageable pageable = PageRequest.of(0,20, Sort.by("examDate").descending());
+        model.addAttribute("exams", examRepo.findAll(pageable));
         return "exams";
     }
 
     @GetMapping("/exams/{id}")
     public String viewExam(Model model, @PathVariable Long id) {
-
-
+        model.addAttribute("exam", examRepo.getOne(id));
+        model.addAttribute("questions", questionRepo.findAll());
         return "exam";
     }
 
@@ -44,7 +49,10 @@ public class ExamController {
     @PostMapping("/exams/{examId}/questions/{questionId}")
     @Transactional
     public String addQuestionToExam(@PathVariable Long examId, @PathVariable Long questionId) {
-
+        Exam exam = examRepo.getOne(examId);
+        Question question = questionRepo.getOne(questionId);
+        question.getExams().add(exam);
+        questionRepo.save(question);
         return "redirect:/exams/" + examId;
     }
 }

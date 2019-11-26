@@ -15,6 +15,8 @@ public class CourseController {
     
     @Autowired
     private CourseRepository courseRepo;
+    
+    @Autowired
     private StudentRepository studentRepo;
     
     @GetMapping("/courses")

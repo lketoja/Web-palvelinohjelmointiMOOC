@@ -17,7 +17,7 @@
                 <span th:text="${message.content}">msg</span>
             </li>
         </ol>
-            <form method="POST" th:action="@{/messages}" action="/messages">
+            <form sec:authorize="hasAuthority('POSTER')" method="POST" th:action="@{/messages}" action="/messages">
                 <input type="text" name="content"/>
                 <input type="submit" value="Pow!"/>
             </form>

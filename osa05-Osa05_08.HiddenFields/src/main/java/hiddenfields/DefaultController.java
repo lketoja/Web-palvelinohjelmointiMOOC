@@ -8,6 +8,6 @@ public class DefaultController {
 
     @GetMapping("*")
     public String handleDefault() {
-        return "redirect:/messages";
+        return "messages";
     }
 }

@@ -43,6 +43,10 @@ public class ShoppingCartController {
     @PostMapping("/cart/items/{id}")
     public String addItemToShoppingCart(@PathVariable Long id){
         Item item = itemRepository.getOne(id);
+       
+        if(session.getAttribute("cart") == null){
+            session.setAttribute("cart", shoppingCart);
+        }
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
         cart.addToCart(item);
         sum += item.getPrice();

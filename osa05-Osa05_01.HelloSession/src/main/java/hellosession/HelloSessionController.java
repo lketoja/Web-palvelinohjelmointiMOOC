@@ -12,7 +12,7 @@ public class HelloSessionController {
     @ResponseBody
     public String sayHello(HttpSession session) {
 
-        if((boolean)session.getAttribute("visited")){
+        if(session.getAttribute("visited") != null){
             return "Hello again!";
         }
         session.setAttribute("visited", true);

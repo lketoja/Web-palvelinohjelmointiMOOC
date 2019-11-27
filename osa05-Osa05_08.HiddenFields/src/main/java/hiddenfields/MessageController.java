@@ -1,6 +1,7 @@
 package hiddenfields;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ public class MessageController {
         return "messages";
     }
 
+    @Secured("POSTER")
     @PostMapping("/messages")
     public String add(@ModelAttribute Message message) {
         if (message.getContent() != null && !message.getContent().isEmpty()) {

@@ -7,7 +7,7 @@ package euroshopper;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.persistence.Entity;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ShoppingCart extends AbstractPersistable<Long>{
     
-    private Map<Item, Long> items = new HashMap<>();;
+    private Map<Item, Long> items = new HashMap<>();
     
     public void addToCart(Item item){
         if(items.containsKey(item)){

@@ -28,55 +28,61 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableGlobalMethodSecurity(securedEnabled = true, proxyTargetClass = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        // Ei päästetä käyttäjää mihinkään sovelluksen resurssiin ilman
-        // kirjautumista. Tarjotaan kuitenkin lomake kirjautumiseen, mihin
-        // pääsee vapaasti. Tämän lisäksi uloskirjautumiseen tarjotaan
-        // mahdollisuus kaikille.
-        http.formLogin()
-            .permitAll()
-            .and()
-            .logout()
-            .logoutUrl("/logout")
-            .logoutSuccessUrl("/login");
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        // Ei päästetä käyttäjää mihinkään sovelluksen resurssiin ilman
+//        // kirjautumista. Tarjotaan kuitenkin lomake kirjautumiseen, mihin
+//        // pääsee vapaasti. Tämän lisäksi uloskirjautumiseen tarjotaan
+//        // mahdollisuus kaikille.
+//        http.formLogin()
+//            .permitAll()
+//            .and()
+//            .logout()
+//            .logoutUrl("/logout")
+//            .logoutSuccessUrl("/login");
         
 //        http.authorizeRequests()
 //                .anyRequest().authenticated().and()
 //                .formLogin().permitAll().and()
-//                .logout().permitAll();
-        
-    }
-    
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user")
-                .password("password")
-                .roles("USER")
-                .and()
-                .withUser("postman")
-                .password("pat")
-                .roles("POSTER");
-    }
-    
-    @Bean
-    public PasswordEncoder getPasswordEncoder(){
-        return NoOpPasswordEncoder.getInstance();
-    }
-
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        // withdefaultpasswordencoder on deprekoitu mutta toimii yhä
-//        UserDetails user = User.withDefaultPasswordEncoder()
-//                               .username("user")
-//                               .password("password")
-//                               .authorities("USER")
-//                               .build();
-//        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-//        manager.createUser(user);
-//        return manager;
+//                .logout().permitAll();       
 //    }
+    
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("user")
+//                .password("password")
+//                .roles("USER")
+//                .and()
+//                .withUser("postman")
+//                .password("pat")
+//                .roles("POSTER");
+//    }
+//    
+//    @Bean
+//    public PasswordEncoder getPasswordEncoder(){
+//        return NoOpPasswordEncoder.getInstance();
+//    }
+
+    @Bean
+    @Override
+    public UserDetailsService userDetailsService() {
+        // withdefaultpasswordencoder on deprekoitu mutta toimii yhä
+        UserDetails user = User.withDefaultPasswordEncoder()
+                               .username("user")
+                               .password("password")
+                               .authorities("USER")
+                               .build();
+        
+        UserDetails user2 = User.withDefaultPasswordEncoder()
+                               .username("postman")
+                               .password("pat")
+                               .authorities("POSTER")
+                               .build();
+        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+        manager.createUser(user);
+        manager.createUser(user2);
+        return manager;
+    }
 }
 

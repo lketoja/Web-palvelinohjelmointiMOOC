@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <meta charset="UTF-8" />
+        <title>Tasks</title>
+    </head>
+    <body>
+
+        <h2>Tasks</h2>
+
+        <!-- TODO: add the ability to list and add tasks (using Javascript!) -->
+        
+        <h3>Add a task!</h3>
+        
+        <input type="text" name="task" id="add-task" />
+        <input type="button" onclick="addTask()" value="Add" />
+        
+        <script th:inline="javascript"> var contextRoot = /*[[@{/}]]*/ '';</script>
+        <script th:src="@{/javascript/tasks.js}" defer></script>
+        
+    </body>
+</html>

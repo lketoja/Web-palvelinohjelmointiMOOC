@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Laskin</title>
+    </head>
+    <body>
+        <header>
+            <h1>Plus-, Miinus- ja Kertolaskin</h1>
+        </header>
+
+        <section>
+            <p>
+                <input type="text" id="eka" value="0" />
+                <input type="text" id="toka" value="0" />
+            </p>
+
+            <p>
+                <input type="button" value="+" onclick="plus()" />
+                <input type="button" value="-" onclick="miinus()" />
+                <input type="button" value="*" onclick="kerto()" />
+                
+            </p>
+
+
+            <p>Laskimen antama vastaus: <span id="tulos"></span></p>
+        </section>
+
+        <script th:src="@{/javascript/calculator.js}" defer></script>
+    </body>
+</html>

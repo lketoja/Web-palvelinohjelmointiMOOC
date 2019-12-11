@@ -1,6 +1,7 @@
 package euroshopper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
@@ -14,15 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class OrderController {
 
-
-    @Autowired
-    private ItemRepository itemRepository;
-
     @Autowired
     private OrderRepository orderRepository;
     
     @Autowired
-    private HttpSession session;
+    private ShoppingCart shoppingCart;
 
     @RequestMapping("/orders")
     public String list(Model model) {
@@ -32,9 +29,9 @@ public class OrderController {
 
     @PostMapping("/orders")
     public String order(@RequestParam String name, @RequestParam String address) {
-        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+        
         List<OrderItem> orderItems = new ArrayList<>();
-        Map<Item, Long> cartItems = cart.getItems();
+        Map<Item, Long> cartItems = shoppingCart.getItems();
         for(Item item : cartItems.keySet()){
             OrderItem orderItem = new OrderItem(item, cartItems.get(item));
             orderItems.add(orderItem);
@@ -45,8 +42,9 @@ public class OrderController {
         order.setAddress(address);
         order.setOrderItems(orderItems);
 
-
         orderRepository.save(order);
+        
+        shoppingCart.setItems(new HashMap<>());
 
         return "redirect:/orders";
     }

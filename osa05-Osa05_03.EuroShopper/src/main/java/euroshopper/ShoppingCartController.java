@@ -33,7 +33,6 @@ public class ShoppingCartController {
     
     @GetMapping("/cart")
     public String showCart(Model model){
-        session.setAttribute("cart", shoppingCart);
         model.addAttribute("items", shoppingCart.getItems());
         model.addAttribute("sum", sum);
     
@@ -43,18 +42,9 @@ public class ShoppingCartController {
     @PostMapping("/cart/items/{id}")
     public String addItemToShoppingCart(@PathVariable Long id){
         Item item = itemRepository.getOne(id);
-       
-        if(session.getAttribute("cart") == null){
-            session.setAttribute("cart", shoppingCart);
-        }
-        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-        cart.addToCart(item);
+        shoppingCart.addToCart(item);
         sum += item.getPrice();
      
-        
-        session.setAttribute("cart", cart);
-        
-        
         return "redirect:/cart";
     }
     
